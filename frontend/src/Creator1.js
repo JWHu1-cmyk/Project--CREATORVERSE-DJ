@@ -1,13 +1,22 @@
 // import supabase from "./client.js";
 import axios from "axios";
 
+//
+const API_URL = import.meta.env.VITE_API_URL;
+
+// Remove the quotes around the URL
+axios.defaults.baseURL = API_URL;
+
+// Add this line here
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+
 export async function getCreators() {
   // hu: good
 
   try {
     const response = await axios.get('/api/creators/');
     console.log(response);
-    console.log("you been fooled");
+    console.log("you been fooled!");
     return response.data;
   } catch (error) {
     console.error("Error fetching creators:", error);
