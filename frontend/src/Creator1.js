@@ -6,6 +6,8 @@ export async function getCreators() {
 
   try {
     const response = await axios.get('/api/creators/');
+    console.log(response);
+    console.log("you been fooled");
     return response.data;
   } catch (error) {
     console.error("Error fetching creators:", error);
