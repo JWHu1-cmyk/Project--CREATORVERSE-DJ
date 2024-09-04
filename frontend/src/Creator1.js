@@ -10,6 +10,9 @@ axios.defaults.baseURL = API_URL;
 // Add this line here
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
+//
+import { format } from 'date-fns';
+
 export async function getCreators() {
   // hu: good
 
@@ -73,18 +76,18 @@ export async function createCreator(form) {
   // hu: good
   try {
     let creator_id = Math.floor(Math.random() * 32768);
+    //what happen if creator_id has been created;
 
-    // Properties to add or update
-    let updates = {
-      id: creator_id,
-      created_at: new Date(), // Use ISO string for date
+    let formattedDate = format(new Date(), 'yyyy-MM-dd');
+
+    // Omit the ID, let the server generate it
+    let creator = {
+      ...form,
+      created_at: formattedDate,
     };
-
-    // Adding multiple properties using Object.assign()
-    let creator = Object.assign({}, form, updates);
     console.log(creator);
     console.log('Sending request to:', axios.getUri({url: '/api/creators/', baseURL: axios.defaults.baseURL}));
-    
+
     //
     try {
       const response = await axios.post('/api/creators/', creator);
