@@ -82,7 +82,9 @@ export async function createCreator(form) {
 
     // Adding multiple properties using Object.assign()
     let creator = Object.assign({}, form, updates);
-
+    console.log(creator);
+    console.log('Sending request to:', axios.getUri({url: '/api/creators/', baseURL: axios.defaults.baseURL}));
+    
     //
     try {
       const response = await axios.post('/api/creators/', creator);
@@ -90,6 +92,10 @@ export async function createCreator(form) {
       alert("Creator inserted successfully!");
       return response.data; // This contains the newly created creator, including server-generated fields
     } catch (error) {
+ 
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+      console.error('Error headers:', error.response.headers);
       console.error("Error inserting creator:", error);
       const errorMessage = error.response?.data?.message || error.message;
       alert("Error inserting creator: " + errorMessage);
