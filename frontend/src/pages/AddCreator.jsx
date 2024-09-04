@@ -62,7 +62,7 @@ export default function AddCreator() {
           <span>Image URL: </span>
         </label>
         <input 
-          name="imageURL" 
+          name="imageurl" 
           placeholder="Enter Image URL" 
           className="form-control" 
         />
