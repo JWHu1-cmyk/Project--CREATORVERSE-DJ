@@ -11,7 +11,7 @@ class Creators(models.Model):
     imageurl = models.TextField()
     
     class Meta:
-        db_table = 'creatorverse'  # Or any name you prefer
+        db_table = 'creatorverse1'  # Or any name you prefer
 
     def _str_(self):
         return self.title
