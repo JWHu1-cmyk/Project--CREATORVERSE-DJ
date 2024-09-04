@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Creators
 
 class CreatorsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_at', 'name', 'url', 'description', 'imageurl')
+    list_display = ('created_at', 'name', 'url', 'description', 'imageurl')
 
 # Register your models here.
 
