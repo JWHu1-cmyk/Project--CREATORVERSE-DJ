@@ -75,6 +75,7 @@ export async function updateCreator(id, name, url, description, imageURL) {
 
 export async function createCreator(form) {
   // hu: good
+  console.log('form:', form);
   try {
     let creator_id = Math.floor(Math.random() * 32768);
     //what happen if creator_id has been created;
