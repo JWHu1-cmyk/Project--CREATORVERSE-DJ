@@ -13,6 +13,7 @@ class Creators(models.Model):
     imageurl = models.TextField()
     
     class Meta:
+        managed = True
         db_table = 'creator'  # Or any name you prefer
 
     def _str_(self):
