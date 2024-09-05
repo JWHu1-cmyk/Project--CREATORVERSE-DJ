@@ -9,7 +9,7 @@ axios.defaults.baseURL = API_URL;
 
 // Add this line here
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 //
 import { format } from 'date-fns';
 
@@ -131,44 +131,44 @@ export async function createCreator(form) {
   return;
 }
 
-// Function to simulate form submission and call createCreator
-async function testCreator() {
-  // ***
-  // Simulated form data
-  // const form = {
-  //   name: 'John Doe',
+// // Function to simulate form submission and call createCreator
+// async function testCreator() {
+//   // ***
+//   // Simulated form data
+//   // const form = {
+//   //   name: 'John Doe',
 
-  //   description: 'A sample creator description',
-  //   imageURL: 'https://johndoe.com/image.jpg'
-  // };
+//   //   description: 'A sample creator description',
+//   //   imageURL: 'https://johndoe.com/image.jpg'
+//   // };
 
-  // // Call createCreator with the simulated form data
-  // await createCreator(form);
+//   // // Call createCreator with the simulated form data
+//   // await createCreator(form);
 
-  // // ***
-  // const id = 8651
+//   // // ***
+//   // const id = 8651
 
-  // // Call deleteCreators with the simulated form data
-  // await deleteCreators(id);
+//   // // Call deleteCreators with the simulated form data
+//   // await deleteCreators(id);
 
-  // // ***
-  // const creators = await getCreators();
-  // console.log(creators);
+//   // // ***
+//   // const creators = await getCreators();
+//   // console.log(creators);
 
-  // ***
-  // Simulated form data
-  const form = {
-    id: '22489',
-    name: 'jay',
-    imageURL: 'https://johndoe.com/image.jpg'
-  };
+//   // ***
+//   // Simulated form data
+//   const form = {
+//     id: '22489',
+//     name: 'jay',
+//     imageURL: 'https://johndoe.com/image.jpg'
+//   };
 
-  console.log(form.description);
+//   console.log(form.description);
 
-  // Call createCreator with the simulated form data
-  await updateCreator(form.id, form.name, form.url, form.description, form.imageURL);
+//   // Call createCreator with the simulated form data
+//   await updateCreator(form.id, form.name, form.url, form.description, form.imageURL);
 
-}
+// }
 
-// Run the test
-testCreator();
+// // Run the test
+// testCreator();
