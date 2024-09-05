@@ -59,7 +59,7 @@ export async function updateCreator(id, name, url, description, imageURL) {
       name: name,
       url: url,
       description: description,
-      imageURL: imageURL
+      imageurl: imageURL
     };
 
     // Send the updated item back to the server
@@ -83,9 +83,11 @@ export async function createCreator(form) {
     // Omit the ID, let the server generate it
     let creator = {
       ...form,
+      id: creator_id,
       created_at: formattedDate,
     };
-    console.log(creator);
+    console.log('Full creator object:', creator);
+  console.log('creator.id:', creator.id);
     console.log('Sending request to:', axios.getUri({url: '/api/creators/', baseURL: axios.defaults.baseURL}));
 
     //
