@@ -2,6 +2,13 @@ import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
 import { getCreators, updateCreator } from "../Creator1";
 
 export async function action({ request, params }) {
+  await updateCreator(
+    Number(params.creatorId),
+    updates.name,
+    updates.url,
+    updates.description,
+    updates.imageURL
+  );
   try {
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
