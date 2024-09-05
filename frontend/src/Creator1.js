@@ -91,11 +91,20 @@ export async function createCreator(form) {
     };
     console.log('Full creator object:', creator);
     console.log('creator.id:', creator.id);
-    console.log('Sending request to:', axios.getUri({url: '/api/creators/', baseURL: axios.defaults.baseURL}));
+    console.log('Sending request to:', axios.getUri({url: '/api/creatorss/', baseURL: axios.defaults.baseURL}));
 
     //
     try {
-      const response = await axios.post('/api/creatorss/', creator);
+      const creator1 = {
+
+        created_at: "n",
+        name: "n",
+        url: "n",
+        description: "n",
+        imageurl: "n",
+
+      };
+      const response = await axios.post('/api/creatorss/', creator1);
       console.log("Creator inserted successfully:", response.data);
       alert("Creator inserted successfully!");
       return response.data; // This contains the newly created creator, including server-generated fields
