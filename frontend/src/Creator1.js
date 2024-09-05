@@ -95,16 +95,16 @@ export async function createCreator(form) {
 
     //
     try {
-      const creator1 = {
+      // const creator1 = {
 
-        created_at: "n",
-        name: "n",
-        url: "n",
-        description: "n",
-        imageurl: "n",
+      //   created_at: "n",
+      //   name: "n",
+      //   url: "n",
+      //   description: "n",
+      //   imageurl: "n",
 
-      };
-      const response = await axios.post('/api/creatorss/', creator1);
+      // };
+      const response = await axios.post('/api/creatorss/', creator);
       console.log("Creator inserted successfully:", response.data);
       alert("Creator inserted successfully!");
       return response.data; // This contains the newly created creator, including server-generated fields
