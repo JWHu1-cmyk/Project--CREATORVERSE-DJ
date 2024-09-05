@@ -79,13 +79,14 @@ export async function createCreator(form) {
     let creator_id = Math.floor(Math.random() * 32768);
     //what happen if creator_id has been created;
 
-    let formattedDate = format(new Date(), 'yyyy-MM-dd');
+    // let formattedDate = format(new Date(), 'yyyy-MM-dd');
+    let formattedDateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 
     // Omit the ID, let the server generate it
     let creator = {
       ...form,
-      id: creator_id,
-      created_at: formattedDate,
+      // id: creator_id,
+      created_at: formattedDateTime,
     };
     console.log('Full creator object:', creator);
     console.log('creator.id:', creator.id);
