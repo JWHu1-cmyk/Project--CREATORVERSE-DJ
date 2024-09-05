@@ -62,6 +62,8 @@ export async function updateCreator(id, name, url, description, imageURL) {
       imageurl: imageURL
     };
 
+    console.log('Full creator object:', item);
+
     // Send the updated item back to the server
     const putResponse = await axios.put(`/api/creators/${id}`, item);
     
@@ -87,7 +89,7 @@ export async function createCreator(form) {
       created_at: formattedDate,
     };
     console.log('Full creator object:', creator);
-  console.log('creator.id:', creator.id);
+    console.log('creator.id:', creator.id);
     console.log('Sending request to:', axios.getUri({url: '/api/creators/', baseURL: axios.defaults.baseURL}));
 
     //
