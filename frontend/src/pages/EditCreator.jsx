@@ -93,7 +93,7 @@ export default function EditCreator() {
         <input
           name="imageURL"
           placeholder="Enter Image URL"
-          defaultValue={creator?.imageURL}
+          defaultValue={creator?.imageurl}
           className="form-control"
         />
       </div>
