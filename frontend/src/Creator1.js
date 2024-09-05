@@ -17,7 +17,7 @@ export async function getCreators() {
   // hu: good
 
   try {
-    const response = await axios.get('/api/creators/');
+    const response = await axios.get('/api/creatorss/');
     return response.data;
   } catch (error) {
     console.error("Error fetching creators:", error);
@@ -32,7 +32,7 @@ export async function deleteCreator(id) {
   try {
 
     try {
-      const response = await axios.delete(`/api/creators/${id}/`);
+      const response = await axios.delete(`/api/creatorss/${id}/`);
       return response.data;
     } catch (error) {
       console.error("Error deleting creator:", error.message);
@@ -49,7 +49,7 @@ export async function updateCreator(id, name, url, description, imageURL) {
  
   try {
     // First, get the current item
-    const getResponse = await axios.get(`/api/creators/${id}/`);
+    const getResponse = await axios.get(`/api/creatorss/${id}/`);
     let item = getResponse.data;
 
     // Update the item with new values
@@ -64,7 +64,7 @@ export async function updateCreator(id, name, url, description, imageURL) {
     console.log('Full creator object:', item);
 
     // Send the updated item back to the server
-    const putResponse = await axios.put(`/api/creators/${id}/`, item);
+    const putResponse = await axios.put(`/api/creatorss/${id}/`, item);
     
     return putResponse.data;
   } catch (error) {
@@ -95,7 +95,7 @@ export async function createCreator(form) {
 
     //
     try {
-      const response = await axios.post('/api/creators/', creator);
+      const response = await axios.post('/api/creatorss/', creator);
       console.log("Creator inserted successfully:", response.data);
       alert("Creator inserted successfully!");
       return response.data; // This contains the newly created creator, including server-generated fields
