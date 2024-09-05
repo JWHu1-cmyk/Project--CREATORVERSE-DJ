@@ -4,7 +4,7 @@ from rest_framework import routers
 from creators import views
 
 router = routers.DefaultRouter()
-router.register(r'creators', views.CreatorsView, 'creator')
+router.register(r'creatorss', views.CreatorsView, 'creators')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
