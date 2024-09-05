@@ -100,7 +100,7 @@ export async function createCreator(form) {
       alert("Creator inserted successfully!");
       return response.data; // This contains the newly created creator, including server-generated fields
     } catch (error) {
-      console.log("Full response data:", response.data);
+ 
       console.error('Error response:', error.response.data);
       console.error('Error status:', error.response.status);
       console.error('Error headers:', error.response.headers);
