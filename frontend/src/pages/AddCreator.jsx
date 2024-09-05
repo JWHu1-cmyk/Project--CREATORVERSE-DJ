@@ -67,11 +67,11 @@ export default function AddCreator() {
           className="form-control" 
         />
       </div>
-      <div className="d-flex justify-content-between">
-        <button type="submit" className="btn btn-primary">Save</button>
+      <div className="d-flex justify-content-center mt-4">
+        <button type="submit" className="btn btn-dark px-4 py-2 me-2">Save</button>
         <button 
           type="button" 
-          className="btn btn-secondary" 
+          className="btn btn-dark px-4 py-2 ms-2"
           onClick={() => navigate(-1)}
         >
           Cancel
