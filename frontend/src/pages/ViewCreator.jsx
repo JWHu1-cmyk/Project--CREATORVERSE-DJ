@@ -64,8 +64,8 @@ export default function ViewCreator() {
                   <strong>Description: </strong>{creator.description}
                 </p>
               )}
-              <div className="d-flex justify-content-start">
-                <button className="btn btn-primary me-2" onClick={handleEdit}>Edit</button>
+              <div className="d-flex justify-content-start mt-4">
+                <button className="btn btn-dark px-4 py-2 me-2" onClick={handleEdit}>Edit</button>
                 <Form
                   method="post"
                   onSubmit={(event) => {
@@ -74,7 +74,7 @@ export default function ViewCreator() {
                     }
                   }}
                 >
-                  <button type="submit" className="btn btn-danger">Delete</button>
+                  <button type="submit" className="btn btn-dark px-4 py-2 ms-2">Delete</button>
                 </Form>
               </div>
             </div>
