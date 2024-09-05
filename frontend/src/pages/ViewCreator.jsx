@@ -42,8 +42,8 @@ export default function ViewCreator() {
         <div className="row g-0">
           <div className="col-md-4">
             <img
-              key={creator.imageURL}
-              src={creator.imageURL || `https://robohash.org/${creator.id}.png?size=200x200`}
+              key={creator.imageurl}
+              src={creator.imageurl || `https://robohash.org/${creator.id}.png?size=200x200`}
               className="img-fluid rounded-start"
               alt={`${creator.name || 'Creator Image'}`}
             />
