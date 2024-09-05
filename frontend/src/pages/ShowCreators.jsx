@@ -9,7 +9,6 @@ import { getCreators } from "../Creator1";
 export async function loader() {
   try {
     const contacts = await getCreators();
-    console.log(contacts);
     return { contacts };
   } catch (error) {
     console.error("Failed to load contacts:", error);

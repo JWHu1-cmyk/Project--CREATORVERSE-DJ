@@ -18,8 +18,6 @@ export async function getCreators() {
 
   try {
     const response = await axios.get('/api/creators/');
-    console.log(response);
-    console.log("you been fooled!");
     return response.data;
   } catch (error) {
     console.error("Error fetching creators:", error);
@@ -48,23 +46,10 @@ export async function deleteCreator(id) {
 }
 
 export async function updateCreator(id, name, url, description, imageURL) {
-      // First, get the current item
-      const getResponse = await axios.get(`/api/creators/${id}`);
-      let item = getResponse.data;
-  
-      // Update the item with new values
-      item = {
-        ...item,
-        name: name,
-        url: url,
-        description: description,
-        imageurl: imageURL
-      };
-  
-      console.log('Full creator object:', item);
+ 
   try {
     // First, get the current item
-    const getResponse = await axios.get(`/api/creators/${id}`);
+    const getResponse = await axios.get(`/api/creators/${id}/`);
     let item = getResponse.data;
 
     // Update the item with new values
@@ -79,7 +64,7 @@ export async function updateCreator(id, name, url, description, imageURL) {
     console.log('Full creator object:', item);
 
     // Send the updated item back to the server
-    const putResponse = await axios.put(`/api/creators/${id}`, item);
+    const putResponse = await axios.put(`/api/creators/${id}/`, item);
     
     return putResponse.data;
   } catch (error) {
