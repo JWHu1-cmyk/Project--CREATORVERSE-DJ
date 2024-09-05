@@ -52,7 +52,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-
+    'corsheaders.middleware.CorsPostCsrfMiddleware'
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -141,3 +141,13 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = ['*']
+CORS_ALLOW_HEADERS = ['*']
+# CORS_ALLOW_METHODS = [
+#     'DELETE',
+#     'GET',
+#     'OPTIONS',
+#     'PATCH',
+#     'POST',
+#     'PUT',
+# ]
