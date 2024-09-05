@@ -6,6 +6,7 @@ class Creators(models.Model):
     # id = models.AutoField(primary_key=True)
     # id = models.IntegerField(primary_key=True)
     # created_at = models.DateField(auto_now_add=True)
+    id = models.AutoField(primary_key=True)
     created_at = models.TextField()
     name = models.TextField()
     url = models.TextField()
