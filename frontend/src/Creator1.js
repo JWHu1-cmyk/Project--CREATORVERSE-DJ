@@ -34,7 +34,7 @@ export async function deleteCreator(id) {
   try {
 
     try {
-      const response = await axios.delete(`/api/creators/${id}`);
+      const response = await axios.delete(`/api/creators/${id}/`);
       return response.data;
     } catch (error) {
       console.error("Error deleting creator:", error.message);
