@@ -85,9 +85,15 @@ if os.environ.get('RAILWAY_ENVIRONMENT'):
             "ENGINE": "django.db.backends.postgresql",
             'NAME': 'railway',
             'USER': 'postgres',
-            'PASSWORD': 'gZcaWoFbVRcxMbIeQPMkPYgiNOIbmXdk',
-            'HOST': 'meticulous-empathy.railway.internal',
+            'PASSWORD': 'LevWXRcBIrcKjtDxYfAhcdPKdHmiOUXJ',
+            'HOST': 'meticulous-empathy-tkme.railway.internal',
             'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': '<PGDATABASE>',
+        # 'USER': '<PGUSER>',
+        # 'PASSWORD': '<PGPASSWORD>',
+        # 'HOST': '<PGHOST>',
+        # 'PORT': '<PGPORT>',
         }
     }
 else:
