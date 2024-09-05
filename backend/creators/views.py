@@ -8,3 +8,5 @@ from .models import Creators
 class CreatorsView(viewsets.ModelViewSet):
     serializer_class = CreatorSerializer
     queryset = Creators.objects.all()
+    
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']

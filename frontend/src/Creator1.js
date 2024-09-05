@@ -9,7 +9,7 @@ axios.defaults.baseURL = API_URL;
 
 // Add this line here
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-
+axios.defaults.withCredentials = true;
 //
 import { format } from 'date-fns';
 
