@@ -194,3 +194,8 @@ from datetime import timedelta # import this library top of the settings.py file
 #     'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
 #     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 # }
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://backend-production-d542.up.railway.app',
+    # Add other trusted origins if needed
+]
