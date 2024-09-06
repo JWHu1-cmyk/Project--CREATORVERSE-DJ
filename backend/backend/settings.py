@@ -80,31 +80,31 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if os.environ.get('RAILWAY_ENVIRONMENT'):
-    DATABASES = {
-        "default": {
-            # "ENGINE": "django.db.backends.sqlite3",
-            "ENGINE": "django.db.backends.postgresql",
-            'NAME': 'railway',
-            'USER': 'postgres',
-            'PASSWORD': 'LevWXRcBIrcKjtDxYfAhcdPKdHmiOUXJ',
-            'HOST': 'meticulous-empathy-tkme.railway.internal',
-            'PORT': '5432',
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': '<PGDATABASE>',
-        # 'USER': '<PGUSER>',
-        # 'PASSWORD': '<PGPASSWORD>',
-        # 'HOST': '<PGHOST>',
-        # 'PORT': '<PGPORT>',
-        }
+# if os.environ.get('RAILWAY_ENVIRONMENT'):
+DATABASES = {
+    "default": {
+        # "ENGINE": "django.db.backends.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'LevWXRcBIrcKjtDxYfAhcdPKdHmiOUXJ',
+        'HOST': 'meticulous-empathy-tkme.railway.internal',
+        'PORT': '5432',
+    # 'ENGINE': 'django.db.backends.postgresql',
+    # 'NAME': '<PGDATABASE>',
+    # 'USER': '<PGUSER>',
+    # 'PASSWORD': '<PGPASSWORD>',
+    # 'HOST': '<PGHOST>',
+    # 'PORT': '<PGPORT>',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
