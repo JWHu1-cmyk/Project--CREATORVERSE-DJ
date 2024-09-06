@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "Ahcd",
+        "corsheaders",
         "creatorss",
         "CREATORVERSE",
         "imageurl",
@@ -10,7 +11,10 @@
         "PGHOST",
         "PGPORT",
         "PGUSER",
+        "simplejwt",
         "supabase",
-        "tkme"
+        "tkme",
+        "viewset",
+        "viewsets"
     ]
 }

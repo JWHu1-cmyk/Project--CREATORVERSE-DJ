@@ -4,3 +4,4 @@ django-cors-headers
 gunicorn
 psycopg
 psycopg2
+djangorestframework_simplejwt
