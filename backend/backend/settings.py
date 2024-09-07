@@ -11,7 +11,23 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import environ
 from pathlib import Path
+
+# Initialize environment variables
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# Set Casting and Default Value:
+# Casting: (bool, False)
+# This means that the value of the DEBUG environment variable will be cast to a boolean.
+# If the environment variable is set to a string like "True" or "False", it will be converted to the corresponding boolean value True or False.
+# Default Value: False
+# If the DEBUG environment variable is not set, it will default to False.
+# The line env = environ.Env(DEBUG=(bool, False)) sets up the environment variable manager with a specific configuration for the DEBUG variable, specifying its type (boolean) and default value (False). However, this line alone does not actually retrieve the value of the DEBUG environment variable. It only defines how the DEBUG variable should be interpreted when it is retrieved.
+# To actually retrieve the value of the DEBUG environment variable and use it in your Django settings, you need to call env.bool('DEBUG', default=False).
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +47,9 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
+if DEBUG:
+    INTERNAL_IPS = ["127.0.0.1"]  # <-- Updated!
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,9 +61,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
+    "debug_toolbar",  # <-- Updated!
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # <-- Updated!
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -199,3 +220,12 @@ CSRF_TRUSTED_ORIGINS = [
     'https://backend-production-d542.up.railway.app',
     # Add other trusted origins if needed
 ]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": env.str("REDIS_URL", "redis://localhost:6379/"),
+        "KEY_PREFIX": "imdb",
+        "TIMEOUT": 60 * 15,  # in seconds: 60 * 15 (15 minutes)
+    }
+}
