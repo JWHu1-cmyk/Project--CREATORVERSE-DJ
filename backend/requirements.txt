@@ -5,3 +5,4 @@ gunicorn
 psycopg
 psycopg2
 djangorestframework_simplejwt
+django-environ
