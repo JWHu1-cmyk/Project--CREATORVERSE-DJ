@@ -7,3 +7,5 @@ gunicorn
 psycopg
 psycopg2
 djangorestframework_simplejwt
+redis
+django-redis
