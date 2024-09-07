@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import socket
 import os
 import environ
 from pathlib import Path
@@ -49,6 +49,10 @@ ALLOWED_HOSTS = ["*"]
 
 if DEBUG:
     INTERNAL_IPS = ["127.0.0.1"]  # <-- Updated!
+
+# Dynamically add the IP addresses of the development machine
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
