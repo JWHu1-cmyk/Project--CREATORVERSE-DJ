@@ -24,11 +24,11 @@ class CreatorsView(viewsets.ModelViewSet):
     
     http_method_names = ['get', 'post', 'put', 'patch', 'delete']
     
-    @method_decorator(cache_page(60 * 30))  # Cache GET requests for 30 minutes
+    @method_decorator(cache_page(60 * 30, key_prefix="creator_list"))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
-    @method_decorator(cache_page(60 * 30))  # Cache retrieve requests for 30 minutes
+    @method_decorator(cache_page(60 * 30, key_prefix="creator_detail"))
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
     
@@ -48,5 +48,5 @@ class CreatorsView(viewsets.ModelViewSet):
         return result
 
     def invalidate_cache(self):
-        cache.clear()  # Clear entire cache
-        # Or use more specific cache key invalidation if possible
+        cache.delete_pattern("creator_list*")
+        cache.delete_pattern("creator_detail*")
