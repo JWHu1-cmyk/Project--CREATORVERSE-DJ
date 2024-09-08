@@ -15,6 +15,24 @@ from django.core.cache import cache
 
 # Create your views here.
 
+# Django DRF to axios:
+# a comprehensive Django view that corresponds to all the standard DRF (Django Rest Framework) methods, along with their axios counterparts:
+    # def get(self, request, pk=None):
+        # axios.get
+    # def post(self, request):
+        # axios.post
+    # def put(self, request, pk):
+        # axios.put
+    # def patch(self, request, pk):
+        # axios.patch
+    # def delete(self, request, pk):
+        # axios.delete
+
+# ModelViewSet implementation:
+    # ModelViewSet automatically provides list(), create(), retrieve(), update(), partial_update(), and destroy() actions.
+    # These correspond to GET (list and detail), POST, PUT, PATCH, and DELETE HTTP methods.
+    # To add caching or custom logic, you can override these methods.
+
 class CreatorsView(viewsets.ModelViewSet):
     # authentication_classes = [JWTAuthentication]
     # permission_classes = [IsAuthenticated]
@@ -22,31 +40,47 @@ class CreatorsView(viewsets.ModelViewSet):
     serializer_class = CreatorSerializer
     queryset = Creators.objects.all()
     
-    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
+    # http_method_names = ['get', 'post', 'put', 'patch', 'delete']
+
+    def list(self, request):
+        cached_data = cache.get('creators_list')
+        if cached_data:
+            return Response(cached_data)
+        
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        cache.set('creators_list', serializer.data, 300)  # Cache for 5 minutes
+        return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        cache.delete('creators_list')
+        return response
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        cache.delete('creators_list')
+        return response
+
+    def destroy(self, request, *args, **kwargs):
+        response = super().destroy(request, *args, **kwargs)
+        cache.delete('creators_list')
+        return response
     
-    @method_decorator(cache_page(60 * 30, key_prefix="creator_list"))
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
-    @method_decorator(cache_page(60 * 30, key_prefix="creator_detail"))
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
-    
-    def perform_create(self, serializer):
-        result = super().perform_create(serializer)
-        self.invalidate_cache()
-        return result
-
-    def perform_update(self, serializer):
-        result = super().perform_update(serializer)
-        self.invalidate_cache()
-        return result
-
-    def perform_destroy(self, instance):
-        result = super().perform_destroy(instance)
-        self.invalidate_cache()
-        return result
-
-    def invalidate_cache(self):
-        cache.delete_pattern("creator_list*")
-        cache.delete_pattern("creator_detail*")
+# claude 3.5 explanation:
+# 1. queryset = self.filter_queryset(self.get_queryset())
+    # self.get_queryset() retrieves the base queryset defined in the view (in this case, Creators.objects.all()).
+    # self.filter_queryset() applies any filtering (e.g., from query parameters) to the queryset.
+    # This allows for features like search or filtering in your API.
+# 2. serializer = self.get_serializer(queryset, many=True)
+    # self.get_serializer() returns an instance of the serializer class specified in serializer_class.
+    # many=True tells the serializer to handle multiple objects (a queryset) rather than a single instance.
+    # This serializes the queryset into a format that can be easily converted to JSON.
+# 3. cache.set('creators_list', serializer.data, 300)
+    # This caches the serialized data.
+    # 'creators_list' is the cache key.
+    # serializer.data is the serialized queryset (a list of dictionaries).
+    # 300 is the cache timeout in seconds (5 minutes).
+# 4. return Response(serializer.data)
+    # This returns the serialized data as an HTTP response.
+    # Response is a DRF class that handles rendering the data into the appropriate format (usually JSON).
