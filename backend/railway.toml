@@ -3,8 +3,6 @@ builder = "Dockerfile"
 
 [deploy]
 startCommand = "/start.sh"
-healthcheckPath = "/"
-healthcheckTimeout = 100
 
 [env]
 PYTHON_VERSION = "3.10.13"
