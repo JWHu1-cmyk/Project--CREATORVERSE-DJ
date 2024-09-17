@@ -13,6 +13,11 @@ from django.views.decorators.cache import cache_page
 
 from django.core.cache import cache
 
+from django.http import JsonResponse
+from creators.documents import CreatorsDocument
+
+
+
 # Create your views here.
 
 # Django DRF to axios:
@@ -84,3 +89,18 @@ class CreatorsView(viewsets.ModelViewSet):
 # 4. return Response(serializer.data)
     # This returns the serialized data as an HTTP response.
     # Response is a DRF class that handles rendering the data into the appropriate format (usually JSON).
+    
+def search_view(request):
+    query = request.GET.get('q', '')
+    # Construct the multi-field search query
+    s = CreatorsDocument.search().query(
+        'multi_match', 
+        query=query, 
+        fields=['name', 'description', 'url']
+    )
+    # Execute the search query
+    response = s.execute()
+    # Process the search results
+    results = [{'id': hit.meta.id, 'name': hit.name, 'url': hit.url, 'description': hit.description, 'imageurl': hit.imageurl} for hit in response]
+    # Return the results as JSON
+    return JsonResponse(results, safe=False)

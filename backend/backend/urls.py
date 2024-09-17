@@ -4,6 +4,9 @@ from django.urls import path, include
 from rest_framework import routers
 from creators import views
 
+
+from .views import search_view
+
 router = routers.DefaultRouter()
 router.register(r'creatorss', views.CreatorsView, 'creators')
 
@@ -27,9 +30,9 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),    
     path('api/', include(router.urls)),
     path("__debug__/", include("debug_toolbar.urls")),
+    path('search/', search_view, name='search'),
     # ex: http://localhost:8000/__debug__/
 ]
-
 
     # path('', include('myapp.urls')), # include your app urls.py here
 

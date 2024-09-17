@@ -14,23 +14,22 @@ import os
 import environ
 from pathlib import Path
 
+
+
 # Initialize environment variables
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
 )
-# Set Casting and Default Value:
-# Casting: (bool, False)
-# This means that the value of the DEBUG environment variable will be cast to a boolean.
-# If the environment variable is set to a string like "True" or "False", it will be converted to the corresponding boolean value True or False.
-# Default Value: False
-# If the DEBUG environment variable is not set, it will default to False.
-# The line env = environ.Env(DEBUG=(bool, False)) sets up the environment variable manager with a specific configuration for the DEBUG variable, specifying its type (boolean) and default value (False). However, this line alone does not actually retrieve the value of the DEBUG environment variable. It only defines how the DEBUG variable should be interpreted when it is retrieved.
-# To actually retrieve the value of the DEBUG environment variable and use it in your Django settings, you need to call env.bool('DEBUG', default=False).
+####
+# Hu: In the provided code snippet, env is an instance of the Env class from the django-environ package. This instance is used to manage and access environment variables in a more structured and type-safe way.
+#      DEBUG = env('DEBUG') 
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -45,8 +44,11 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
+
 # Application definition
 
+####
+## I think it's kinda suss
 if DEBUG:
     INTERNAL_IPS = ["127.0.0.1"]  # <-- Updated!
 
@@ -54,7 +56,11 @@ if DEBUG:
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
 
+
+
+#
 INSTALLED_APPS = [
+    "django_elasticsearch_dsl",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -97,6 +103,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
@@ -150,6 +158,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+####
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -160,7 +170,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -199,6 +208,9 @@ CORS_ALLOW_HEADERS = [
        'x-requested-with',
    ]
  
+ 
+ 
+####
 # # settings.py
 # from datetime import timedelta # import this library top of the settings.py file
 
@@ -220,6 +232,9 @@ CORS_ALLOW_HEADERS = [
 #     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 # }
 
+
+
+####
 CSRF_TRUSTED_ORIGINS = [
     'https://backend-production-d542.up.railway.app',
     # Add other trusted origins if needed
@@ -231,5 +246,15 @@ CACHES = {
         "LOCATION": env.str("REDIS_URL", "redis://localhost:6379/"),
         "KEY_PREFIX": "imdb",
         "TIMEOUT": 60 * 15,  # in seconds: 60 * 15 (15 minutes)
+    }
+}
+
+
+
+####
+ELASTICSEARCH_HOST = os.getenv('HOST', 'http://localhost:9200')
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': ELASTICSEARCH_HOST
     }
 }

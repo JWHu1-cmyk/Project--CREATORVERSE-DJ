@@ -9,3 +9,4 @@ psycopg2
 djangorestframework_simplejwt
 redis
 django-redis
+django-elasticsearch-dsl
