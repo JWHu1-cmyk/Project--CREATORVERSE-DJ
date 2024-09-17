@@ -23,7 +23,7 @@ export default function Root() {
             placeholder="Search creators..."
             style={{ marginRight: '10px' }}
           />
-          <button type="button" className="btn btn-dark">
+          <button type="submit" className="btn btn-dark">
               SEARCH
           </button>
           {/* </div> */}
