@@ -1,10 +1,8 @@
-import React from "react";
-import {
-  Outlet,
-  NavLink,
-  useLoaderData,
-} from "react-router-dom";
-import { getCreators } from "../Creator1";
+
+import React, { useState, useEffect } from 'react';
+import { Outlet, useLocation, useLoaderData } from 'react-router-dom';
+import { getCreators } from '../Creator1';
+import CreatorListItem from './CreatorListItem';
 
 export async function loader() {
   try {
@@ -16,48 +14,35 @@ export async function loader() {
   }
 }
 
-export default function Root() {
-  const { contacts } = useLoaderData();
+export default function ShowCreators() {
+  const [results, setResults] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get('q');
+  const loaderData = useLoaderData();
+
+  useEffect(() => {
+    if (query) {
+      fetch(`/search?q=${query}`)
+        .then(response => response.json())
+        .then(data => setResults(data))
+        .catch(error => console.error('Error fetching search results:', error));
+    } else {
+      setContacts(loaderData.contacts);
+    }
+  }, [query, loaderData.contacts]);
+
+  const itemsToDisplay = query ? results : contacts;
 
   return (
     <div className="container mt-4">
-      <nav className="mb-4">
-        {contacts && contacts.length ? (
-          <>
-            <div className="mb-3"></div>
-            <ul className="list-group">
-              {contacts.map((contact) => (
-                <li key={contact.id} className="list-group-item">
-                  <NavLink
-                    to={`./creators/${contact.id}`}
-                    className={({ isActive, isPending }) =>
-                      isActive ? "list-group-item active" : isPending ? "list-group-item pending" : "list-group-item"
-                    }
-                  >
-                    <div>
-                      <strong>Name:</strong>{" "}
-                      {contact.name ? contact.name : "No Name"}
-                    </div>
-                    <div>
-                      <strong>URL:</strong>{" "}
-                      {contact.url ? contact.url : "No URL"}
-                    </div>
-                    <div>
-                      <strong>Description:</strong>{" "}
-                      {contact.description ? contact.description : "No Description"}
-                    </div>
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <p>
-            <i>No contacts</i>
-          </p>
-        )}
-      </nav>
-      <Outlet />
+      <h1>{query ? "Search Results" : "All Creators"}</h1>
+      <ul className="list-group mt-4">
+        {itemsToDisplay.map((item) => (
+          <CreatorListItem key={item.id} item={item} />
+        ))}
+      </ul>
+      {!query && <Outlet />}
     </div>
   );
 }
