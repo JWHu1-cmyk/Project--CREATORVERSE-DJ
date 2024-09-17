@@ -24,11 +24,11 @@ export default function ShowCreators() {
   useEffect(() => {
     if (query) {
       fetch(`/search?q=${query}`)
-        .then(response => response.json())
-        .then(data => {
-          console.log('Fetched search results:', data);
-          setResults(data);
+        .then(response => {
+          console.log('Raw response:', response);
+          return response.json();
         })
+        .then(data => setResults(data))
         .catch(error => console.error('Error fetching search results:', error));
     } else {
       setContacts(loaderData.contacts);
