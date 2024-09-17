@@ -25,7 +25,10 @@ export default function ShowCreators() {
     if (query) {
       fetch(`/search?q=${query}`)
         .then(response => response.json())
-        .then(data => setResults(data))
+        .then(data => {
+          console.log('Fetched search results:', data);
+          setResults(data);
+        })
         .catch(error => console.error('Error fetching search results:', error));
     } else {
       setContacts(loaderData.contacts);
