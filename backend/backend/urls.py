@@ -5,7 +5,7 @@ from rest_framework import routers
 from creators import views
 
 
-from .views import search_view
+from creators.views import search_view
 
 router = routers.DefaultRouter()
 router.register(r'creatorss', views.CreatorsView, 'creators')
