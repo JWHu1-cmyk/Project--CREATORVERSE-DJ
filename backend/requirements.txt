@@ -10,3 +10,4 @@ djangorestframework_simplejwt
 redis
 django-redis
 django-elasticsearch-dsl
+python-dotenv
