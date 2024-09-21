@@ -236,6 +236,7 @@ CORS_ALLOW_HEADERS = [
 
 ####
 CSRF_TRUSTED_ORIGINS = [
+    'https://frontend-production-e2ee.up.railway.app',
     'https://backend-production-d542.up.railway.app',
     # Add other trusted origins if needed
 ]
