@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation, useLoaderData } from 'react-router-dom';
 import { getCreators } from '../Creator1';
@@ -22,6 +21,7 @@ export default function ShowCreators() {
   const loaderData = useLoaderData();
 
   useEffect(() => {
+    console.log('Hello!');
     if (query) {
       fetch(`/search?q=${query}`)
         .then(response => {
@@ -36,6 +36,7 @@ export default function ShowCreators() {
   }, [query, loaderData.contacts]);
 
   const itemsToDisplay = query ? results : contacts;
+  console.log('itemsToDisplay:', itemsToDisplay);
 
   return (
     <div className="container mt-4">

@@ -106,6 +106,21 @@ turning the code base into docker image doesn't work.
 
 
 
+`python manage.py search_index --rebuild`
+// only have to do once
 
+after running previous command,
+initially kept on getting:
+```
+elastic_transport.ConnectionError: Connection error caused by: ConnectionError(Connection error caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x7f9f51d600a0>: Failed to establish a new connection: [Errno 61] Connection refused))
+```
 
+then after reviewing setting, realized that I set 'http://localhost:9200' as connect if not connected to remote;
+had to create '.env' in manage.py folder,
+to include
+'HOST='https://elasticsearch-production-5633.up.railway.app/''
+// code allows HOST to replace localhost if HOST is specified;
+
+https://backend-production-d542.up.railway.app/search/?q=Hu
+// now this command returns someting
 
