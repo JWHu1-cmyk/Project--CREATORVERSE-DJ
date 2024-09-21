@@ -249,8 +249,8 @@ CACHES = {
     }
 }
 
-
-
+from dotenv import load_dotenv
+load_dotenv()
 ####
 ELASTICSEARCH_HOST = os.getenv('HOST', 'http://localhost:9200')
 ELASTICSEARCH_DSL = {
