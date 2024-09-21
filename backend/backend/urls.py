@@ -30,8 +30,10 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),    
     path('api/', include(router.urls)),
     path("__debug__/", include("debug_toolbar.urls")),
-    path('search/', search_view, name='search'),
     # ex: http://localhost:8000/__debug__/
+    # for checking redis
+    path('search/', search_view, name='search'),
+     
 ]
 
     # path('', include('myapp.urls')), # include your app urls.py here
