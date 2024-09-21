@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation, useLoaderData } from 'react-router-dom';
 import { getCreators } from '../Creator1';
 import CreatorListItem from './CreatorListItem';
+import axios from 'axios';
+
+// Configure Axios
+const API_URL = import.meta.env.VITE_API_URL;
+axios.defaults.baseURL = API_URL;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+// axios.defaults.withCredentials = true;  // Uncomment if needed
 
 export async function loader() {
   try {
@@ -23,12 +30,11 @@ export default function ShowCreators() {
   useEffect(() => {
     console.log('Hello!');
     if (query) {
-      fetch(`/search?q=${query}`)
+      axios.get(`/search?q=${query}`)
         .then(response => {
           console.log('Raw response:', response);
-          return response.json();
+          setResults(response.data);
         })
-        .then(data => setResults(data))
         .catch(error => console.error('Error fetching search results:', error));
     } else {
       setContacts(loaderData.contacts);
