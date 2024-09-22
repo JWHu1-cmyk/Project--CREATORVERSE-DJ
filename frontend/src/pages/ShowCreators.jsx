@@ -30,7 +30,7 @@ export default function ShowCreators() {
   useEffect(() => {
     if (query) {
       const encodedQuery = encodeURIComponent(query);
-      axios.get(`${API_URL}/search?q=${encodedQuery}`, {
+      axios.get(`${API_URL}search?q=${encodedQuery}/`, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
