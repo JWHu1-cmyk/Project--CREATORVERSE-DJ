@@ -2,25 +2,32 @@ import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
 import { getCreators, updateCreator } from "../Creator1";
 
 export async function action({ request, params }) {
- 
   try {
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
 
+    // Validate form fields
+    const requiredFields = ['name', 'url', 'description', 'imageURL'];
+    const emptyFields = requiredFields.filter(field => !updates[field] || updates[field].trim() === '');
+
+    if (emptyFields.length > 0) {
+      const errorMessage = `Please fill in the following fields: ${emptyFields.join(', ')}`;
+      return { error: errorMessage };
+    }
+
     // Attempt to update the creator and handle potential errors
     await updateCreator(
       Number(params.creatorId),
-      updates.name,
-      updates.url,
-      updates.description,
-      updates.imageURL
+      updates.name.trim(),
+      updates.url.trim(),
+      updates.description.trim(),
+      updates.imageURL.trim()
     );
 
     return redirect(`/showCreators`);
   } catch (error) {
     console.error("Error updating creator:", error);
-    alert("Error updating creator: " + error.message);
-    return redirect(`/showCreators`);
+    return { error: "Error updating creator: " + error.message };
   }
 }
 
