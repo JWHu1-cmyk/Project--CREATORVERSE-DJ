@@ -65,13 +65,13 @@ export default function ShowCreators() {
       setContacts(loaderData.contacts);
     }
   }, [query, loaderData.contacts]);
-  
+
   const itemsToDisplay = query ? results : contacts;
   console.log('itemsToDisplay:', itemsToDisplay);
 
   return (
     <div className="container mt-4">
-      <h1>{query ? "Search Results" : "All Creators"}</h1>
+      <h1>{query ? "Search Results, Page Redirect" : "All Creators"}</h1>
       <ul className="list-group mt-4">
         {itemsToDisplay.map((item) => (
           <CreatorListItem key={item.id} item={item} />
