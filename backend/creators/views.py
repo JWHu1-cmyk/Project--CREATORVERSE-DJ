@@ -17,8 +17,8 @@ from django.http import JsonResponse
 from creators.documents import CreatorsDocument
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from corsheaders.decorators import cors_headers
-
+ 
+import logging
 
 # Create your views here.
 
@@ -97,7 +97,6 @@ logger = logging.getLogger(__name__)
 
 @require_http_methods(["GET", "OPTIONS"])
 @csrf_exempt
-@cors_headers
 def search_view(request):
     logger.info(f"Received request: {request.method} {request.GET}")
     query = request.GET.get('q', '')
