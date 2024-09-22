@@ -12,7 +12,8 @@ export async function action({ request, params }) {
 
     if (emptyFields.length > 0) {
       const errorMessage = `Please fill in the following fields: ${emptyFields.join(', ')}`;
-      return { error: errorMessage };
+      console.log(errorMessage);
+      return null; // Return null to prevent form submission
     }
 
     // Attempt to update the creator and handle potential errors
@@ -27,7 +28,7 @@ export async function action({ request, params }) {
     return redirect(`/showCreators`);
   } catch (error) {
     console.error("Error updating creator:", error);
-    return { error: "Error updating creator: " + error.message };
+    return null; // Return null to prevent form submission
   }
 }
 
