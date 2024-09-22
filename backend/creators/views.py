@@ -15,7 +15,9 @@ from django.core.cache import cache
 
 from django.http import JsonResponse
 from creators.documents import CreatorsDocument
-
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+from corsheaders.decorators import cors_headers
 
 
 # Create your views here.
@@ -90,8 +92,16 @@ class CreatorsView(viewsets.ModelViewSet):
     # This returns the serialized data as an HTTP response.
     # Response is a DRF class that handles rendering the data into the appropriate format (usually JSON).
     
+
+logger = logging.getLogger(__name__)
+
+@require_http_methods(["GET", "OPTIONS"])
+@csrf_exempt
+@cors_headers
 def search_view(request):
+    logger.info(f"Received request: {request.method} {request.GET}")
     query = request.GET.get('q', '')
+    logger.info(f"Search query: {query}")
     # Construct the multi-field search query
     s = CreatorsDocument.search().query(
         'multi_match', 
@@ -103,4 +113,9 @@ def search_view(request):
     # Process the search results
     results = [{'id': hit.meta.id, 'name': hit.name, 'url': hit.url, 'description': hit.description, 'imageurl': hit.imageurl} for hit in response]
     # Return the results as JSON
-    return JsonResponse(results, safe=False)
+    # Return the results as JSON
+    json_response = JsonResponse(results, safe=False)
+    json_response["Access-Control-Allow-Origin"] = "https://frontend-production-e2ee.up.railway.app"
+    json_response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    json_response["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+    return json_response

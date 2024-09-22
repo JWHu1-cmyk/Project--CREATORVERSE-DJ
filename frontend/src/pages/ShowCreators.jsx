@@ -28,14 +28,27 @@ export default function ShowCreators() {
   const loaderData = useLoaderData();
 
   useEffect(() => {
-    console.log('Hello!');
     if (query) {
-      axios.get(`/search?q=${query}/`)
-        .then(response => {
-          console.log('Raw response:', response);
-          setResults(response.data);
-        })
-        .catch(error => console.error('Error fetching search results:', error));
+      const encodedQuery = encodeURIComponent(query);
+      axios.get(`${API_URL}/search?q=${encodedQuery}`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        }
+      })
+      .then(response => {
+        console.log('Raw response:', response);
+        setResults(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching search results:', error);
+        if (error.response) {
+          console.log('Response data:', error.response.data);
+          console.log('Response status:', error.response.status);
+          console.log('Response headers:', error.response.headers);
+        }
+      });
     } else {
       setContacts(loaderData.contacts);
     }
