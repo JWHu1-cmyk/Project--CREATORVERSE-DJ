@@ -30,7 +30,7 @@ export default function ShowCreators() {
   useEffect(() => {
     console.log('Hello!');
     if (query) {
-      axios.get(`/search?q=${query}`)
+      axios.get(`/search/`)
         .then(response => {
           console.log('Raw response:', response);
           setResults(response.data);
