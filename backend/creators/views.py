@@ -98,23 +98,22 @@ logger = logging.getLogger(__name__)
 @require_http_methods(["GET", "OPTIONS"])
 @csrf_exempt
 def search_view(request):
-    logger.info(f"Received request: {request.method} {request.GET}")
-    query = request.GET.get('q', '')
-    logger.info(f"Search query: {query}")
-    # Construct the multi-field search query
-    s = CreatorsDocument.search().query(
-        'multi_match', 
-        query=query, 
-        fields=['name', 'description', 'url']
-    )
-    # Execute the search query
-    response = s.execute()
-    # Process the search results
-    results = [{'id': hit.meta.id, 'name': hit.name, 'url': hit.url, 'description': hit.description, 'imageurl': hit.imageurl} for hit in response]
-    # Return the results as JSON
-    # Return the results as JSON
-    json_response = JsonResponse(results, safe=False)
-    json_response["Access-Control-Allow-Origin"] = "https://frontend-production-e2ee.up.railway.app"
-    json_response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-    json_response["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
-    return json_response
+    if request.method == "OPTIONS":
+        response = JsonResponse({})
+    else:
+        logger.info(f"Received request: {request.method} {request.GET}")
+        query = request.GET.get('q', '')
+        logger.info(f"Search query: {query}")
+        s = CreatorsDocument.search().query(
+            'multi_match', 
+            query=query, 
+            fields=['name', 'description', 'url']
+        )
+        response = s.execute()
+        results = [{'id': hit.meta.id, 'name': hit.name, 'url': hit.url, 'description': hit.description, 'imageurl': hit.imageurl} for hit in response]
+        response = JsonResponse(results, safe=False)
+
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+    return response
