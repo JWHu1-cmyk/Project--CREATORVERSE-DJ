@@ -13,7 +13,7 @@ from django.views.decorators.cache import cache_page
 
 from django.core.cache import cache
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from creators.documents import CreatorsDocument
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
@@ -99,7 +99,7 @@ logger = logging.getLogger(__name__)
 @csrf_exempt
 def search_view(request):
     if request.method == "OPTIONS":
-        response = JsonResponse({})
+        response = HttpResponse()
     else:
         logger.info(f"Received request: {request.method} {request.GET}")
         query = request.GET.get('q', '')
@@ -111,7 +111,9 @@ def search_view(request):
         )
         response = s.execute()
         results = [{'id': hit.meta.id, 'name': hit.name, 'url': hit.url, 'description': hit.description, 'imageurl': hit.imageurl} for hit in response]
-        response = JsonResponse(results, safe=False)
+        
+        # Render the HTML template
+        return render(request, 'search_results.html', {'results': results, 'query': query})
 
     response["Access-Control-Allow-Origin"] = "*"
     response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
