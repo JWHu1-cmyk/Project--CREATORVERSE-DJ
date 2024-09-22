@@ -58,9 +58,10 @@ export default function ShowCreators() {
   // // axios.get(`/search?q=${query}/`)
   useEffect(() => {
     if (query) {
-      const encodedQuery = encodeURIComponent(query);
-      const searchUrl = `${API_URL}search?q=${encodedQuery}/`;
-      window.location.href = searchUrl;
+      const searchUrl = new URL(`${API_URL}search`);
+      searchUrl.searchParams.append('q', query);
+      searchUrl.searchParams.append('pretty', 'true');
+      window.location.href = searchUrl.toString();
     } else {
       setContacts(loaderData.contacts);
     }
