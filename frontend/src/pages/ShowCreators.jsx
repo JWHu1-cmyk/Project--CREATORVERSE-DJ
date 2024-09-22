@@ -30,7 +30,7 @@ export default function ShowCreators() {
   useEffect(() => {
     console.log('Hello!');
     if (query) {
-      axios.get('/api/creatorss/')
+      axios.get(`/search?q=${query}`)
         .then(response => {
           console.log('Raw response:', response);
           setResults(response.data);
@@ -40,6 +40,7 @@ export default function ShowCreators() {
       setContacts(loaderData.contacts);
     }
   }, [query, loaderData.contacts]);
+  // axios.get('/api/creatorss/')
   // axios.get(`/search?q=${query}`)
 
   const itemsToDisplay = query ? results : contacts;
