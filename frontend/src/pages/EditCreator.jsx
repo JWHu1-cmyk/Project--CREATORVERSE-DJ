@@ -13,6 +13,7 @@ export async function action({ request, params }) {
     if (emptyFields.length > 0) {
       const errorMessage = `Please fill in the following fields: ${emptyFields.join(', ')}`;
       console.log(errorMessage);
+      alert(errorMessage);
       return null; // Return null to prevent form submission
     }
 
