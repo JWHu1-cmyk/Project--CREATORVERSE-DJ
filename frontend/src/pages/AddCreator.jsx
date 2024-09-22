@@ -10,14 +10,30 @@ export async function action({ request }) {
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
 
-    // Attempt to create the creator and handle potential errors
-    await createCreator(updates);
+    // Validate form fields
+    const requiredFields = ['name', 'url', 'description', 'imageurl'];
+    const emptyFields = requiredFields.filter(field => !updates[field] || updates[field].trim() === '');
 
-    return redirect(`/`);
+    if (emptyFields.length > 0) {
+      const errorMessage = `Please fill in the following fields: ${emptyFields.join(', ')}`;
+      console.log(errorMessage);
+      alert(errorMessage);
+      return null; // Return null to prevent form submission
+    }
+
+    // Attempt to create the creator and handle potential errors
+    await createCreator({
+      name: updates.name.trim(),
+      url: updates.url.trim(),
+      description: updates.description.trim(),
+      imageurl: updates.imageurl.trim()
+    });
+
+    return redirect(`/showCreators`);
   } catch (error) {
-    console.error("Error inserting creator:", error);
-    alert("Error inserting creator: " + error.message);
-    return redirect(`/`);
+    console.error("Error creating creator:", error);
+    alert("Error creating creator: " + error.message);
+    return null; // Return null to prevent form submission
   }
 }
 
